@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv").config()
+const router = require("./routes/contactRoute");
+const errorHandler = require("./middlewares/errorHandler");
 const app = express();
 
 
@@ -7,11 +9,9 @@ const PORT = process.env.PORT || 8080
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(errorHandler)
 
-
-app.get("/", (req, res)=>{
-    res.send("Welcome to Home Page")
-})
+app.use("/api/contacts", router)
 
 
 app.listen(PORT, (req, res)=>{
