@@ -14,13 +14,18 @@ const contact =await contactModel.find()
 // Get Contact By Id
 // Route Get /api/contacts/:id
 const getContactById = asyncHandler (async (req, res) => {
+ try{
   const contact = await contactModel.findById(req.params.id);
   if(!contact){
     res.status(404)
     throw new Error("COntact not found")
   }
   res.status(200).json({ message: `Welcome to Home ${req.params.id} `, contact });
-});
+ }
+ catch(e){
+  res.status(400).json({ message: `Error While Fetching Contact By ID` });
+ }
+ });
 // POST Create Contact
 // Route POST /api/contact
 const createContact = asyncHandler (async (req, res) => {
@@ -63,8 +68,8 @@ const deleteContact = asyncHandler (async (req, res) => {
     res.status(404)
     throw new Error("Contact not found")
   }
-  const updateContact = await contactModel.findByIdAndDelete(req.params.id)
-  res.status(200).json({ message: `Delete Request DELETE ${req.params.id} ` });
+  const deleteContact = await contactModel.findByIdAndDelete(req.params.id)
+  res.status(200).json({ message: `Delete Request DELETE ${req.params.id}`, contact });
 });
 module.exports = {
   getContacts,
