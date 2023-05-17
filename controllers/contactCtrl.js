@@ -7,7 +7,6 @@ const contactModel = require("../model/contactModel")
 // Route Get /api/contacts
 const getContacts = asyncHandler (async (req, res) => {
 const contact =await contactModel.find()
-
   res.status(200).json(contact);
 });
 
