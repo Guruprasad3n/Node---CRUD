@@ -17,12 +17,12 @@ const getContactById = asyncHandler (async (req, res) => {
   const contact = await contactModel.findById(req.params.id);
   if(!contact){
     res.status(404)
-    throw new Error("COntact not found")
+    throw new Error("Contact not found")
   }
   res.status(200).json({ message: `Welcome to Home ${req.params.id} `, contact });
  }
  catch(e){
-  res.status(400).json({ message: `Error While Fetching Contact By ID` });
+  res.status(404).json({ message: `User id Not Found`});
  }
  });
 // POST Create Contact
