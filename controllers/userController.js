@@ -3,8 +3,22 @@
 // Access Public
 const errorHandler = require("../middlewares/errorHandler");
 const asyncHandler = require("express-async-handler");
+const userModel = require("../model/userModel")
+
 
 const registerUser = asyncHandler(async (req, res) => {
+const {userName, email, password} = req.body;
+if(!userName || !email || !password){
+    res.status(400)
+    throw new Error("All Fields Are Mandetory")
+}
+const userExsist = await userModel.findOne({email})
+if(userExsist){
+    res.status(400)
+    throw new Error("Email Already Exist")
+}
+
+
   res.json({ message: "Register the User" });
 });
 
